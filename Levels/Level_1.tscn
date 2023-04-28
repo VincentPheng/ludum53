@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnf56xqubvh5f"]
+
+[ext_resource type="Texture2D" uid="uid://cqaj16pvtlmjf" path="res://sprites/basic_tile.png" id="1_dv8h6"]
+[ext_resource type="PackedScene" uid="uid://cpp1bi0pqc8mt" path="res://Characters/Player.tscn" id="2_wnqb7"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vfmsj"]
+texture = ExtResource("1_dv8h6")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_o8flm"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_vfmsj")
+
+[node name="Level_1" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_o8flm")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_wnqb7")]
+position = Vector2(15, -14)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(15, -14)
