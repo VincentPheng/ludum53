@@ -7,9 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://cufwpbepcsle" path="res://sprites/player/idle/player_idle4.png" id="5_hjnjk"]
 [ext_resource type="Texture2D" uid="uid://c41e7rkyr8gla" path="res://sprites/player/idle/player_idle5.png" id="6_qhnff"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_iwly1"]
-radius = 7.0
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_hlb8i"]
 animations = [{
 "frames": [{
@@ -33,13 +30,16 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_iwly1"]
+radius = 7.0
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_br4lh")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_iwly1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_hlb8i")
 autoplay = "default"
-frame_progress = 0.685126
+frame_progress = 0.969177
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_iwly1")
