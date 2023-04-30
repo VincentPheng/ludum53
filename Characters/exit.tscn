@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://baorinlwmrhp8"]
+
+[ext_resource type="Script" path="res://scripts/exit.gd" id="1_4j4d2"]
+[ext_resource type="Texture2D" uid="uid://btos85xij4qov" path="res://sprites/van.png" id="1_fwakp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_siyuy"]
+size = Vector2(33, 30)
+
+[node name="Exit" type="Area2D"]
+collision_layer = 32
+script = ExtResource("1_4j4d2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 2)
+shape = SubResource("RectangleShape2D_siyuy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_fwakp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

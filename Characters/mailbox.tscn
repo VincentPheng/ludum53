@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://0lmthuhv7imj"]
+
+[ext_resource type="Script" path="res://scripts/mailbox.gd" id="1_2jmiw"]
+[ext_resource type="Texture2D" uid="uid://cu5awqlqi71pj" path="res://sprites/mailbox.png" id="1_ykw73"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iij2w"]
+size = Vector2(42, 39)
+
+[node name="Mailbox" type="Area2D"]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource("1_2jmiw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -11.5)
+shape = SubResource("RectangleShape2D_iij2w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ykw73")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

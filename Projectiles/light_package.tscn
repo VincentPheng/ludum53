@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://58o7keto67rb"]
+
+[ext_resource type="Texture2D" uid="uid://da5oh4gt66lde" path="res://sprites/packages/light_package.png" id="1_46kjp"]
+[ext_resource type="Script" path="res://scripts/light_package.gd" id="1_48lsh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8qb4n"]
+size = Vector2(14, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sjh12"]
+size = Vector2(16, 13)
+
+[node name="Light Package" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_48lsh")
+impulse_x = 500
+impulse_y = -25
+knockback_val = -500
+health = 5
+damage = 1
+type = "light"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_46kjp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_8qb4n")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+modulate = Color(0.0901961, 0.0901961, 0.0901961, 1)
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_sjh12")
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]

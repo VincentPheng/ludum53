@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cpp1bi0pqc8mt"]
+[gd_scene load_steps=9 format=3 uid="uid://1h7sbjo6j02b"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_br4lh"]
 [ext_resource type="Texture2D" uid="uid://cwn3tejklvfnr" path="res://sprites/player/idle/player_idle1.png" id="2_ccp2k"]
@@ -34,7 +34,11 @@ animations = [{
 radius = 7.0
 
 [node name="Player" type="CharacterBody2D"]
+z_index = 4096
+collision_mask = 2
 script = ExtResource("1_br4lh")
+SPEED = 150.0
+JUMP_VELOCITY = -350.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_hlb8i")

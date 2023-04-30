@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2ea1745u4set"]
+
+[ext_resource type="Texture2D" uid="uid://vacs6tu28lvp" path="res://sprites/enemies/mugger.png" id="1_6a4vj"]
+[ext_resource type="Script" path="res://scripts/Mugger.gd" id="1_dvs2s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_104r7"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_55itl"]
+radius = 7.0
+
+[node name="Mugger" type="CharacterBody2D" groups=["Mugger"]]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_dvs2s")
+SPEED = 50.0
+health = 30
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_6a4vj")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_104r7")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+modulate = Color(0.184314, 0.184314, 0.184314, 1)
+shape = SubResource("CircleShape2D_55itl")
+
+[node name="PackageDetector" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PackageDetector"]
+modulate = Color(0.733333, 0.301961, 0.443137, 1)
+self_modulate = Color(0.964706, 0, 0.968627, 1)
+shape = SubResource("CircleShape2D_55itl")
+
+[node name="FloorChecker" type="RayCast2D" parent="."]
+target_position = Vector2(0, 9)
+collision_mask = 2
+
+[node name="PlayerSight" type="RayCast2D" parent="."]
+target_position = Vector2(-41, 0)
+
+[node name="PlayerSightTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_entered" from="PackageDetector" to="." method="_on_package_detector_body_entered"]
+[connection signal="timeout" from="PlayerSightTimer" to="." method="_on_player_sight_timer_timeout"]

@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://d4cc013d3xsa8"]
+
+[ext_resource type="FontFile" uid="uid://b7gmol6qx2ovk" path="res://Characters/Peaberry-Base.otf" id="1_4mcup"]
+
+[resource]
+font = ExtResource("1_4mcup")
+font_size = 48
