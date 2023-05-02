@@ -28,7 +28,7 @@ texture = ExtResource("2_bh5fm")
 physics_layer_0/collision_layer = 2
 sources/0 = SubResource("TileSetAtlasSource_vfmsj")
 
-[node name="Level_0" type="Node2D"]
+[node name="level" type="Node2D"]
 script = ExtResource("1_3duo5")
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -139,12 +139,24 @@ theme_override_fonts/font = ExtResource("7_tkx37")
 text = "Deliver"
 
 [node name="Label4" type="Label" parent="."]
-offset_left = 1206.0
-offset_top = -50.0
-offset_right = 1277.0
-offset_bottom = -31.0
+offset_left = 1156.0
+offset_top = 3.0
+offset_right = 1264.0
+offset_bottom = 22.0
 theme_override_fonts/font = ExtResource("7_tkx37")
-text = "Leave"
+text = "Leave by van
+when all packages
+are delivered"
+
+[node name="Label12" type="Label" parent="."]
+offset_left = 914.0
+offset_top = 2.0
+offset_right = 1091.0
+offset_bottom = 59.0
+theme_override_fonts/font = ExtResource("7_tkx37")
+text = "Keep track of how
+many deliveries are
+left by bottom right"
 
 [node name="Light Package" parent="." instance=ExtResource("8_3a4ip")]
 position = Vector2(193, -18)

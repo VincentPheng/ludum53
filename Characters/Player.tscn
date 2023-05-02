@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://1h7sbjo6j02b"]
+[gd_scene load_steps=14 format=3 uid="uid://1h7sbjo6j02b"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_br4lh"]
 [ext_resource type="Texture2D" uid="uid://cwn3tejklvfnr" path="res://sprites/player/idle/player_idle1.png" id="2_ccp2k"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://ckktqie5x6mi7" path="res://sprites/player/idle/player_idle3.png" id="4_bgxpb"]
 [ext_resource type="Texture2D" uid="uid://cufwpbepcsle" path="res://sprites/player/idle/player_idle4.png" id="5_hjnjk"]
 [ext_resource type="Texture2D" uid="uid://c41e7rkyr8gla" path="res://sprites/player/idle/player_idle5.png" id="6_qhnff"]
+[ext_resource type="AudioStream" uid="uid://bkrnvtiko1r3s" path="res://throw.mp3" id="7_v82ux"]
+[ext_resource type="AudioStream" uid="uid://cjk1douxs6b02" path="res://collect.mp3" id="8_jgcia"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hlb8i"]
 animations = [{
@@ -33,6 +35,45 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_iwly1"]
 radius = 7.0
 
+[sub_resource type="Animation" id="Animation_p6pg7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_tlgvr"]
+resource_name = "blinking"
+length = 0.1
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a4dia"]
+_data = {
+"RESET": SubResource("Animation_p6pg7"),
+"blinking": SubResource("Animation_tlgvr")
+}
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 4096
 collision_mask = 2
@@ -47,3 +88,23 @@ frame_progress = 0.969177
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_iwly1")
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="BlinkingAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a4dia")
+}
+
+[node name="JumpTimer" type="Timer" parent="."]
+wait_time = 0.3
+
+[node name="ThrowAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_v82ux")
+
+[node name="CollectAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_jgcia")
+
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timer_timeout"]
+[connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]

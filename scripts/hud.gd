@@ -31,6 +31,12 @@ func _on_level_show_end_level_screen(score):
 	$ScoreScreen.visible = true
 	$ScoreScreen/ScoreLabelNum.text = str(score)
 
+func _on_combo_increase(mailbox_left, combo_val):
+	$DoorCloseAudio.play()
+	if mailbox_left <= 0:
+		$DeliveredAudio.play()
+	$MailboxLeftLabel.text = str(mailbox_left)
+	$Combo/ComboCount.text = "x" + str(combo_val)
 
 func _on_replay_button_pressed():
 	get_tree().reload_current_scene()

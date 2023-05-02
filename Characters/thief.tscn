@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=3 uid="uid://etpkf72fjs5p"]
+
+[ext_resource type="Script" path="res://scripts/Thief.gd" id="1_4fh51"]
+[ext_resource type="Texture2D" uid="uid://b0cr4a6hh0mh0" path="res://sprites/enemies/thief.png" id="2_xor31"]
+[ext_resource type="Texture2D" uid="uid://da5oh4gt66lde" path="res://sprites/packages/light_package.png" id="3_sx7u0"]
+[ext_resource type="AudioStream" uid="uid://cok7llnd12uwo" path="res://bonk.mp3" id="4_qd531"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hhdwr"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h726i"]
+radius = 7.0
+
+[node name="Thief" type="CharacterBody2D" groups=["Thief"]]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("1_4fh51")
+baseSpeed = 75.0
+knockback_val = 150
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_xor31")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hhdwr")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+modulate = Color(0.184314, 0.184314, 0.184314, 1)
+shape = SubResource("CircleShape2D_h726i")
+
+[node name="PackageDetector" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PackageDetector"]
+modulate = Color(0.733333, 0.301961, 0.443137, 1)
+self_modulate = Color(0.964706, 0, 0.968627, 1)
+shape = SubResource("CircleShape2D_h726i")
+
+[node name="FloorChecker" type="RayCast2D" parent="."]
+target_position = Vector2(0, 9)
+collision_mask = 2
+
+[node name="PlayerSight" type="RayCast2D" parent="."]
+target_position = Vector2(-45, 0)
+
+[node name="PlayerSightTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="CurrentPackageSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -11)
+scale = Vector2(0.5625, 0.5625)
+texture = ExtResource("3_sx7u0")
+
+[node name="RunningStateTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="BonkSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_qd531")
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_entered" from="PackageDetector" to="." method="_on_package_detector_body_entered"]
+[connection signal="timeout" from="PlayerSightTimer" to="." method="_on_player_sight_timer_timeout"]
+[connection signal="timeout" from="RunningStateTimer" to="." method="_on_running_state_timer_timeout"]

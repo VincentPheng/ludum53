@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2ea1745u4set"]
+[gd_scene load_steps=6 format=3 uid="uid://b2ea1745u4set"]
 
 [ext_resource type="Texture2D" uid="uid://vacs6tu28lvp" path="res://sprites/enemies/mugger.png" id="1_6a4vj"]
 [ext_resource type="Script" path="res://scripts/Mugger.gd" id="1_dvs2s"]
+[ext_resource type="AudioStream" uid="uid://cok7llnd12uwo" path="res://bonk.mp3" id="3_h6sv4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_104r7"]
 radius = 7.0
@@ -14,7 +15,7 @@ collision_layer = 8
 collision_mask = 2
 script = ExtResource("1_dvs2s")
 SPEED = 50.0
-health = 30
+knockback_val = 150
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_6a4vj")
@@ -47,8 +48,11 @@ collision_mask = 2
 target_position = Vector2(-41, 0)
 
 [node name="PlayerSightTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 3.0
 one_shot = true
+
+[node name="BonkSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_h6sv4")
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_entered" from="PackageDetector" to="." method="_on_package_detector_body_entered"]

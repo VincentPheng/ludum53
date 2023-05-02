@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjb35fhxei1l7"]
+
+[ext_resource type="Theme" uid="uid://che6woj8cjmn0" path="res://hud_peaberry_theme.tres" id="1_xab8k"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_tfnqw"]
+
+[node name="level" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 0.517647)
+offset_right = 1088.0
+offset_bottom = 656.0
+texture = SubResource("CanvasTexture_tfnqw")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 440.0
+offset_top = 272.0
+offset_right = 653.0
+offset_bottom = 323.0
+theme = ExtResource("1_xab8k")
+text = "The End!"
